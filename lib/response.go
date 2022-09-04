@@ -20,20 +20,29 @@ func ResponseOK(w http.ResponseWriter, data interface{}) {
 	ResponseJson(w, http.StatusOK, out)
 }
 
-func Response400(w http.ResponseWriter, data interface{}) {
+func Response400(w http.ResponseWriter, err error) {
 	out := map[string]interface{}{
 		"success": false,
-		"data":    data,
+		"error":   err.Error(),
 		"code":    http.StatusBadRequest,
 	}
 	ResponseJson(w, http.StatusOK, out)
 }
 
-func Response401(w http.ResponseWriter, data interface{}) {
+func Response401(w http.ResponseWriter, err error) {
 	out := map[string]interface{}{
 		"success": false,
-		"data":    data,
+		"error":   err.Error(),
 		"code":    http.StatusUnauthorized,
+	}
+	ResponseJson(w, http.StatusOK, out)
+}
+
+func ResponseError(w http.ResponseWriter, err error) {
+	out := map[string]interface{}{
+		"success": false,
+		"error":   err.Error(),
+		"code":    http.StatusInternalServerError,
 	}
 	ResponseJson(w, http.StatusOK, out)
 }
